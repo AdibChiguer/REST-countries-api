@@ -84,7 +84,7 @@ function App() {
               } 
             />
             <Route 
-              path='/:country'  
+              path='/countryDetails/:country'  
               element=
               { 
                 <Details 

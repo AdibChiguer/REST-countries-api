@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const CountryBox = ({ DarkMode , capital , region , population , name , flag }) => {
   return (
     <Country className='country_container' dark={DarkMode}>
-      <Link to={`/${name}`}>
+      <Link to={`/countryDetails/${name}`}>
         <ImgContainer className="country_box-flag" url={flag} >
         </ImgContainer>
         <BoxInfo className="country_box-info" >
