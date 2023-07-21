@@ -68,7 +68,7 @@ function App() {
         <MainCountryInfo dark={toggeleDarkMode}>
           <Routes>
             <Route 
-              path='/'  
+              path='/REST-countries-api'
               element=
               { 
                 <Home 
@@ -84,7 +84,7 @@ function App() {
               } 
             />
             <Route 
-              path='/countryDetails/:country'  
+              path='/REST-countries-api/countryDetails/:country'  
               element=
               { 
                 <Details 

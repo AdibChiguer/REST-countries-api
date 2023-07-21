@@ -16,26 +16,44 @@ const Details = ({ toggeleDarkMode , onDetails }) => {
     axios.get(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
     .then((res) => {
       setDetails(res.data)
+      console.log(res.data[0])
     })
     .catch((err) => {
       console.log(err);
     })
   } , [])
 
-  let firstKey;
-  let firstValue;
-  let currencies ;
+  // let firstKey;
+  // let firstValue;
+  // let currencies ;
 
-  if(details[0] != null){
-    firstKey = Object.keys(details[0]?.languages)[0];
-    firstValue = details[0]?.languages[firstKey];
-    currencies = Object.keys(details[0]?.currencies)[0]
-  }
+  // if(details[0] !== null){
+  //   if(details[0]?.languages){
+  //     firstKey = Object.keys(details[0]?.languages)[0];
+  //     firstValue = details[0]?.languages[firstKey];
+  //   }
+  //   if(details[0]?.currencies){
+  //     currencies = Object.keys(details[0]?.currencies)[0]
+  //   }
+  // }
+
+
+
+  const nameCommon = details[0]?.name?.common || 'N/A';
+  const nameOfficial = details[0]?.name?.official || 'N/A';
+  const population = details[0]?.population?.toLocaleString() || 'N/A';
+  const region = details[0]?.region || 'N/A';
+  const subregion = details[0]?.subregion || null;
+  const capital = details[0]?.capital?.[0] || null;
+  const tld = details[0]?.tld?.[0] || 'N/A';
+  const currencies = details[0]?.currencies ? Object.keys(details[0]?.currencies)[0]  : 'N/A';
+  const firstKey = details[0]?.languages ? Object.keys(details[0]?.languages)[0] : null;
+  const firstValue = details[0]?.languages?.[firstKey] || 'N/A';
 
   return (
     <DetailsContainer dark={toggeleDarkMode}>
       <BackHomeButton dark={toggeleDarkMode}>
-        <Link to="/"><ArrowBackRoundedIcon/><p>Back</p></Link>
+        <Link to="/REST-countries-api"><ArrowBackRoundedIcon/><p>Back</p></Link>
       </BackHomeButton>
       <ContryInfo>
         <Flag>
@@ -43,18 +61,18 @@ const Details = ({ toggeleDarkMode , onDetails }) => {
         </Flag>
         <Content>
           <CountryName dark={toggeleDarkMode}>
-            <h1>{details[0]?.name.common}</h1>
+            <h1>{nameCommon}</h1>
           </CountryName>
           <CountrySubInfo>
             <LeftGrp dark={toggeleDarkMode}>
-              <p>Native Name: <span>{details[0]?.name.official}</span></p>
-              <p>Population: <span>{details[0]?.population.toLocaleString()}</span></p>
-              <p>Region: <span>{details[0]?.region}</span></p>
-              <p>Sub Region: <span>{details[0]?.subregion}</span></p>
-              <p>Capital: <span>{details[0]?.capital[0]}</span></p>
+              <p>Native Name: <span>{nameOfficial}</span></p>
+              <p>Population: <span>{population}</span></p>
+              <p>Region: <span>{region}</span></p>
+              {subregion != null ? <p>Sub Region: <span>{subregion}</span></p> : null} 
+              {capital != null ? <p>Capital: <span>{capital}</span></p> : null}
             </LeftGrp>
             <RightGrp dark={toggeleDarkMode}>
-              <p>top level domain: <span>{details[0]?.tld[0]}</span></p>
+              <p>top level domain: <span>{tld}</span></p>
               <p>currencies: <span>{currencies}</span></p>
               <p>language: <span>{firstValue}</span></p>
             </RightGrp>
